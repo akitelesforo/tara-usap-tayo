@@ -1,0 +1,25 @@
+<div id="live-chat">		
+  <header class="clearfix">
+    <h4>Usap lang ng usap</h4>
+  </header>
+
+  <div class="chat">			
+    <div class="chat-history" #scrollBottom [scrollTop]="scrollBottom.scrollHeight">				
+      <div class="clearfix" [ngClass]="getName(message) === name ? 'chat-ownmessage' : 'chat-message'" *ngFor="let message of messages">
+        <div class="chat-message-content clearfix">						
+          <span class="chat-time">{{ getTime(message) }}</span>
+          <h5>{{ getName(message) }}</h5>
+          <p>{{ getMessage(message) }}</p>
+          <br>
+        </div> <!-- end chat-message-content -->
+      </div> <!-- end chat-message -->				
+    </div> <!-- end chat-history -->
+
+    <p class="chat-feedback">Someone is typing…</p>
+    <div class="chat-input">
+      <fieldset>					
+        <input type="text" placeholder="Type your message…" autofocus [(ngModel)]="message" (keyup)="$event.keyCode == 13 && sendMessage()">
+      </fieldset>
+    </div>
+  </div> <!-- end chat -->
+</div> <!-- end live-chat -->
