@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="en" ng-app="tara-usap-tayo">
+<head>
+    <meta charset="utf-8">
+    <title>Tara usap tayo</title>
+    <link rel="stylesheet" href="app.css"/>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.7.8/angular.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.2.0/socket.io.slim.js"></script>
+    <script src="app.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="icon" type="image/x-icon" href="favicon.ico">
+</head>
+<body ng-controller="chatCtrl as vm">
+  
+    <div id="live-chat">		
+        <header class="clearfix">
+            <h4>Tara usap tayo</h4>
+        </header>
+        
+        <div class="chat">			
+            <div class="chat-history" scroll-to-bottom="vm.messages">				
+            <div class="clearfix" ng-class="vm.name === message.user ? 'chat-ownmessage' : 'chat-message'" ng-repeat="message in vm.messages">
+                <div class="chat-message-content clearfix">						
+                <span class="chat-time">{{ message.time }}</span>
+                <h5>{{ message.user }}</h5>
+                <p>{{ message.message }}</p>
+                <br>
+                </div> <!-- end chat-message-content -->
+            </div> <!-- end chat-message -->				
+            </div> <!-- end chat-history -->
+        
+            <p class="chat-feedback">Someone is typing…</p>
+            <div class="chat-input">
+            <fieldset>					
+                <input type="text" placeholder="Type your message…" autofocus ng-model="vm.message" ng-keyup="$event.keyCode == 13 && vm.sendMessage()">
+            </fieldset>
+            </div>
+        </div> <!-- end chat -->
+    </div> <!-- end live-chat -->
+
+</body>
+</html>

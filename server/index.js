@@ -10,14 +10,27 @@ let io = socketIO(server);
 const port = process.env.PORT || 3000;
 
 io.on('connection', (socket) => {
-    console.log('user connected');
 
-    socket.on('new-message', (message) => {
-        io.emit('new-message', message);
-        console.log(message);
+    console.log('Client connected');
+
+    socket.on('user:join', (data) => {
+        io.emit('user:join', data);
     });
+
+    socket.on('send:message', (data) => {
+        io.emit('send:message', {
+            user: data.user,
+            message: data.message,
+            time: data.time
+        });
+    });
+
+    socket.on('disconnect', (data) => {
+        io.emit('send:disconnect', data);
+    });   
+
 });
 
 server.listen(port, () => {
-    console.log(`started on port: ${port}`);
+    console.log(`Socket IO server started on port: ${port}`);
 });
