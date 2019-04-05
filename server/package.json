@@ -2,11 +2,11 @@
   "name": "tara-usap-tayo",
   "version": "1.0.0",
   "description": "Server socket.io for chat tara-usap-tayo",
-  "main": "index.js",
+  "main": "server.js",
   "scripts": {
-    "start": "node index.js"
+    "start": "node server.js"
   },
-  "keywords": [],
+  "keywords": ["socket.io", "nodejs", "angularjs", "openshift", "docker"],
   "author": "Akito Telesforo",
   "license": "ISC",
   "dependencies": {
