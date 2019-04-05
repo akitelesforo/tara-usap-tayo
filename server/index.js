@@ -9,9 +9,6 @@ let io = socketIO(server);
 
 const port = process.env.OPENSHIFT_INTERNAL_PORT || process.env.OPENSHIFT_NODEJS_PORT || 8080
 
-io.enable('browser client minification');
-io.enable('browser client etag');
-io.enable('browser client gzip');
 io.set('log level', 1);
 
 io.set('transports', [
