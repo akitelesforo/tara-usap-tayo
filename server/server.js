@@ -7,25 +7,8 @@ let server = http.Server(app);
 let socketIO = require('socket.io');
 let io = socketIO(server);
 
-// App
-app.use(function(req, res, next) {
-
-    res.setHeader('Access-Control-Allow-Origin', '*');
-    res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
-    res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With,content-type');
-    res.setHeader('Access-Control-Allow-Credentials', false);
-
-    next();
-});
-
 // Routing
-app.use(express.static(__dirname + '/'));
-// Serve GET on http://domain/
-app.get('/', function (req, res) {
-    res.sendFile(__dirname + '/index.html');
-  });
-  
-
+app.use(express.static('./'));
 
 // Socket.io
 const ipaddress = process.env.OPENSHIFT_NODEJS_IP || "127.0.0.1";
