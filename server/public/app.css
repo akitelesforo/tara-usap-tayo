@@ -3,9 +3,27 @@
 
 /* ---------- GENERAL ---------- */
 body {
-	background: #e9e9e9;
 	color: #9a9a9a;
 	margin: 0;
+}
+
+img.bg {
+	min-height: 100%;
+	min-width: 1024px;
+	  
+	width: 100%;
+	height: auto;
+	  
+	position: fixed;
+	top: 0;
+	left: 0;
+  }
+  
+@media screen and (max-width: 1024px) {
+img.bg {
+	left: 50%;
+	margin-left: -512px;
+}
 }
 
 a { text-decoration: none; }
@@ -182,4 +200,37 @@ p { margin: 0; }
 	text-align: center;
 	text-decoration: none;
 	font-size: 12px;
+}
+
+.effect8
+{
+    position:relative;
+    -webkit-box-shadow:0 1px 4px rgba(0, 0, 0, 0.3), 0 0 40px rgba(0, 0, 0, 0.1) inset;
+       -moz-box-shadow:0 1px 4px rgba(0, 0, 0, 0.3), 0 0 40px rgba(0, 0, 0, 0.1) inset;
+            box-shadow:0 1px 4px rgba(0, 0, 0, 0.3), 0 0 40px rgba(0, 0, 0, 0.1) inset;
+}
+.effect8:before, .effect8:after
+{
+    content:"";
+    position:absolute;
+    z-index:-1;
+    -webkit-box-shadow:0 0 20px rgba(0,0,0,0.8);
+    -moz-box-shadow:0 0 20px rgba(0,0,0,0.8);
+    box-shadow:0 0 20px rgba(0,0,0,0.8);
+    top:10px;
+    bottom:10px;
+    left:0;
+    right:0;
+    -moz-border-radius:100px / 10px;
+    border-radius:100px / 10px;
+}
+.effect8:after
+{
+    right:10px;
+    left:auto;
+    -webkit-transform:skew(8deg) rotate(3deg);
+       -moz-transform:skew(8deg) rotate(3deg);
+        -ms-transform:skew(8deg) rotate(3deg);
+         -o-transform:skew(8deg) rotate(3deg);
+            transform:skew(8deg) rotate(3deg);
 }
