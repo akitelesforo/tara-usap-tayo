@@ -1,23 +1,32 @@
 let express = require('express')
 let app = express();
-
 let http = require('http');
 let server = http.Server(app);
-
 let socketIO = require('socket.io');
 let io = socketIO(server);
 
+// App
+app.use(function(req, res, next) {
+    res.setHeader('Access-Control-Allow-Origin', '*');
+    res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
+    res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With,content-type');
+    res.setHeader('Access-Control-Allow-Credentials', false);
+    next();
+});
+
 // Routing
 app.use(express.static('./'));
+app.get('/', function (req, res) {
+    res.sendFile(__dirname + '/index.html');
+});
 
 // Socket.io
 const ipaddress = process.env.OPENSHIFT_NODEJS_IP || "127.0.0.1";
 const port = process.env.OPENSHIFT_NODEJS_PORT || 8000;
 
-io.set('log level', 1);
-
 io.set('transports', [
-    'websocket'
+    'websocket',
+    'polling'
 ]);
 
 io.on('connection', (socket) => {
@@ -43,5 +52,5 @@ io.on('connection', (socket) => {
 });
 
 server.listen(port, ipaddress, () => {
-    console.log(`Socket IO server started on port: ${port}`);
+    console.log(`Socket IO server started on: ${ipaddress}:${port}`);
 });
