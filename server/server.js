@@ -19,7 +19,12 @@ app.use(function(req, res, next) {
 });
 
 // Routing
-app.use(express.static(__dirname + '/public'));
+app.use(express.static(__dirname + '/'));
+// Serve GET on http://domain/
+app.get('/', function (req, res) {
+    res.sendFile(__dirname + '/index.html');
+  });
+  
 
 
 // Socket.io
