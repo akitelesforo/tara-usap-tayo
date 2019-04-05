@@ -22,7 +22,7 @@ app.get('/', function (req, res) {
 
 // Socket.io
 const ipaddress = process.env.OPENSHIFT_NODEJS_IP || "127.0.0.1";
-const port = process.env.OPENSHIFT_NODEJS_PORT || 8000;
+const port = process.env.OPENSHIFT_NODEJS_PORT || 8080;
 
 io.set('transports', [
     'websocket',

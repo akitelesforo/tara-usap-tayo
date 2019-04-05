@@ -39,12 +39,14 @@ function chatCtrl(socket) {
   });
 
   function sendMessage() {
-    socket.emit('send:message', {
-      user: vm.name,
-      message: vm.message,
-      time: getTime()
-    });
-
+    if (vm.message !='') {
+      socket.emit('send:message', {
+        user: vm.name,
+        message: vm.message,
+        time: getTime()
+      });
+    }
+    
     vm.message = '';
   };
 
