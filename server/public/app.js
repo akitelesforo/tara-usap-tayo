@@ -67,7 +67,7 @@ app.factory('socketio', socketio);
 socketio.$inject = ['$rootScope'];
 function socketio ($rootScope) {
 
-  var socket = io.connect('ws://aki-webserver-aki-web.7e14.starter-us-west-2.openshiftapps.com:8000/');
+  var socket = io.connect('http://localhost:8080');
 
   return {
     on: function (eventName, callback) {
