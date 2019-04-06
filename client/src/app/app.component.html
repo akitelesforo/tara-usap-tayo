@@ -1,15 +1,16 @@
-<div id="live-chat">		
+<img src="assets/bg.jpg" class="bg" />
+<div id="live-chat" class="effect8">		
   <header class="clearfix">
-    <h4>Usap lang ng usap</h4>
+    <h4>Tara usap tayo</h4>
   </header>
 
   <div class="chat">			
     <div class="chat-history" #scrollBottom [scrollTop]="scrollBottom.scrollHeight">				
-      <div class="clearfix" [ngClass]="getName(message) === name ? 'chat-ownmessage' : 'chat-message'" *ngFor="let message of messages">
+      <div class="clearfix" [ngClass]="chat.user === user ? 'chat-ownmessage' : 'chat-message'" *ngFor="let chat of chats">
         <div class="chat-message-content clearfix">						
-          <span class="chat-time">{{ getTime(message) }}</span>
-          <h5>{{ getName(message) }}</h5>
-          <p>{{ getMessage(message) }}</p>
+          <span class="chat-time">{{ chat.time }}</span>
+          <h5>{{ chat.user }}</h5>
+          <p>{{ chat.message }}</p>
           <br>
         </div> <!-- end chat-message-content -->
       </div> <!-- end chat-message -->				

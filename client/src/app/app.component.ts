@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ChatService } from './chat.service';
+import { Chat } from './chat';
 
 @Component({
   selector: 'app-root',
@@ -9,12 +10,13 @@ import { ChatService } from './chat.service';
 export class AppComponent implements OnInit {
 
   constructor(private chatService: ChatService) {
-    this.name = this.randomEl(this.adjectives) + ' ' + this.randomEl(this.nouns);
+    this.user = this.randomEl(this.adjectives) + ' ' + this.randomEl(this.nouns);
+    this.chatService.userJoin(this.user);
   }
 
+  chats: Chat[] = [];
+  user: string;
   message: string;
-  messages: string[] = [];
-  name: string;
 
 // tslint:disable-next-line: max-line-length
   adjectives = ['adamant', 'adroit', 'amatory', 'animistic', 'antic', 'arcadian', 'baleful', 'bellicose', 'bilious', 'boorish', 'calamitous', 'caustic', 'cerulean', 'comely', 'concomitant', 'contumacious', 'corpulent', 'crapulous', 'defamatory', 'didactic', 'dilatory', 'dowdy', 'efficacious', 'effulgent', 'egregious', 'endemic', 'equanimous', 'execrable', 'fastidious', 'feckless', 'fecund', 'friable', 'fulsome', 'garrulous', 'guileless', 'gustatory', 'heuristic', 'histrionic', 'hubristic', 'incendiary', 'insidious', 'insolent', 'intransigent', 'inveterate', 'invidious', 'irksome', 'jejune', 'jocular', 'judicious', 'lachrymose', 'limpid', 'loquacious', 'luminous', 'mannered', 'mendacious', 'meretricious', 'minatory', 'mordant', 'munificent', 'nefarious', 'noxious', 'obtuse', 'parsimonious', 'pendulous', 'pernicious', 'pervasive', 'petulant', 'platitudinous', 'precipitate', 'propitious', 'puckish', 'querulous', 'quiescent', 'rebarbative', 'recalcitant', 'redolent', 'rhadamanthine', 'risible', 'ruminative', 'sagacious', 'salubrious', 'sartorial', 'sclerotic', 'serpentine', 'spasmodic', 'strident', 'taciturn', 'tenacious', 'tremulous', 'trenchant', 'turbulent', 'turgid', 'ubiquitous', 'uxorious', 'verdant', 'voluble', 'voracious', 'wheedling', 'withering', 'zealous'];
@@ -24,37 +26,45 @@ export class AppComponent implements OnInit {
   ngOnInit() {
     this.chatService
       .getMessages()
-      .subscribe((message: string) => {
-        const d = new Date();
-        const hours = d.getHours();
-        const minutes = d.getMinutes();
-        const timeStamp = (hours > 12 ? hours - 12 : hours) + ':' + minutes + (hours > 12 ? ' PM' : ' AM');
-        this.messages.push(message + ';' + timeStamp);
+      .subscribe((chat: Chat) => {
+        this.chats.push(chat);
+      });
+
+    this.chatService
+      .getNewJoin()
+      .subscribe((name: string) => {
+        const chat: Chat = {
+          user: 'Boy Abunda',
+          message: 'User ' + name + ' has joined.',
+          time: this.getTime()
+        };
+        this.chats.push(chat);
       });
   }
 
   sendMessage() {
     if (this.message !== '') {
-      this.chatService.sendMessage(this.name + '||' + this.message);
+      const chat: Chat = {
+        user: this.user,
+        message: this.message,
+        time: this.getTime()
+      };
+
+      this.chatService.sendMessage(chat);
       this.message = '';
     }
+  }
+
+  getTime() {
+    const d = new Date();
+    const hours = d.getHours();
+    const minutes = d.getMinutes();
+    return (hours > 12 ? hours - 12 : hours) + ':' + minutes + (hours > 12 ? ' PM' : ' AM');
   }
 
   randomEl(list: string[]) {
     const i = Math.floor(Math.random() * list.length);
     return list[i];
-  }
-
-  getName(message: string) {
-    return message.split('||')[0];
-  }
-
-  getTime(message: string) {
-    return message.split(';')[1];
-  }
-
-  getMessage(message: string) {
-    return message.split('||')[1].split(';')[0];
   }
 
 }

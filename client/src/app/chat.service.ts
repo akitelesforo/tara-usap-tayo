@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import * as io from 'socket.io-client';
 import { Observable } from 'rxjs/Observable';
+import { Chat } from './chat';
 
 @Injectable({
   providedIn: 'root'
@@ -8,21 +9,32 @@ import { Observable } from 'rxjs/Observable';
 
 export class ChatService {
 
-  private url = 'http://localhost:3000';
   private socket: SocketIOClient.Socket;
 
   constructor() {
-    this.socket = io(this.url);
+    this.socket = io();
   }
 
-  public sendMessage(message: string) {
-    this.socket.emit('new-message', message);
+  public sendMessage(chat: Chat) {
+    this.socket.emit('send:message', chat);
+  }
+
+  public userJoin(user: string) {
+    this.socket.emit('user:join', user);
   }
 
   public getMessages = () => {
     return Observable.create((observer) => {
-        this.socket.on('new-message', (message) => {
-            observer.next(message);
+        this.socket.on('send:message', (chat: Chat) => {
+            observer.next(chat);
+        });
+    });
+  }
+
+  public getNewJoin = () => {
+    return Observable.create((observer) => {
+        this.socket.on('user:join', (user: string) => {
+            observer.next(user);
         });
     });
   }

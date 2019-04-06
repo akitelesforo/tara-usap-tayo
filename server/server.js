@@ -15,9 +15,9 @@ app.use(function(req, res, next) {
 });
 
 // Routing
-app.use(express.static('./public'));
+app.use(express.static('./dist'));
 app.get('/', function (req, res) {
-    res.sendFile(__dirname + '/public/index.html');
+    res.sendFile(__dirname + '/dist/index.html');
 });
 
 // Socket.io
