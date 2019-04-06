@@ -6,19 +6,18 @@
 
   <div class="chat">			
     <div class="chat-history" #scrollBottom [scrollTop]="scrollBottom.scrollHeight">				
-      <div class="clearfix" [ngClass]="chat.user === user ? 'chat-ownmessage' : 'chat-message'" *ngFor="let chat of chats">
+      <div class="clearfix effect8" [ngClass]="chat.user === user ? 'chat-ownmessage' : 'chat-message'" *ngFor="let chat of chats">
         <div class="chat-message-content clearfix">						
           <span class="chat-time">{{ chat.time }}</span>
           <h5>{{ chat.user }}</h5>
           <p>{{ chat.message }}</p>
-          <br>
         </div> <!-- end chat-message-content -->
       </div> <!-- end chat-message -->				
     </div> <!-- end chat-history -->
 
     <p class="chat-feedback">Someone is typing…</p>
     <div class="chat-input">
-      <fieldset>					
+      <fieldset class="effect8">					
         <input type="text" placeholder="Type your message…" autofocus [(ngModel)]="message" (keyup)="$event.keyCode == 13 && sendMessage()">
       </fieldset>
     </div>
